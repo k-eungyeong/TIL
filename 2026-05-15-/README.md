@@ -7,12 +7,12 @@
    - History : Question, Context를 기억하기 위해 필요(이전 대화의 기록)
      → 대화를 기억하는 것은 LLM의 일 X
 2. 코드 최적화
-  - Anaconda jupyter notebook 사용하기!
+   - Anaconda jupyter notebook 사용하기!
     : 셀 단위로 실행해서 이용자가 n을 요청하면 n을 돌리기 위해 필요한 작업들을 미리 셀로 돌려둘 수 있음, 즉 미리 메모리에 로드 가능 = 속도 향상
 4. rag_contextualize.py 코드
-  - 전체 흐름
+   - 전체 흐름
     * 사용자 질문 → 이전 대화(chat_history) 불러오기 → Retriever 검색 → Context 생성 → Prompt에 history 포함 → LLM 답변 생성 → 대화기록 저장
-  - 새로 등장한 것
+   - 새로 등장한 것
     * HumanMessage, AIMessage : 대화를 사람메시지, AI메시지를 구분해서 저장
     * MessagesPlaceholder : Prompt 안에 chat_history 대화가 들어갈 자리 표시자
     * global : 함수 밖에 선언된 변수를 함수 안에서 참고하고자 할 때
