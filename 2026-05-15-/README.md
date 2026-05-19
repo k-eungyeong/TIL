@@ -18,7 +18,7 @@
     * global : 함수 밖에 선언된 변수를 함수 안에서 참고하고자 할 때
     * lambda : 익명함수(짧게 쓰는 함수), 코드 내에서 → invoke 입력 딕셔너리에서 question 값만 꺼내 retriever에게 넘기기 위한 익명 함수
        해석 ex. lambda x : x["question"] => 함수 만들기, 입력값 : 반환값 
-***************************************************   코드 해석 *************************************************
+```
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.prompts import MessagesPlaceholder
 
@@ -113,7 +113,7 @@ print(ask_question("감자의 종류가 무엇인가?"))
 print("\n--- 세 번째 질문 (문맥 유지 테스트) ---")
 
 print(ask_question("다시 데우는 방법은?"))
-***************************************************************************************************************
+```
 
 ### 어려웠던 점
 - 데이터가 어디서 생성되고 어디서 흐르는가?
