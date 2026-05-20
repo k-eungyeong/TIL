@@ -79,39 +79,50 @@ llm = ChatOllama(model="gemma4e4b") # 로컬시스템에서 ollama에 등록한 
 #    ollama list 한 다음 없다면 ollama pull gemma4:e4b(사용할 LLM 이름)를 콘솔에서 명령해서 가져오기
 
 # 5. 프롬프트 및 체인 구성
-# 중괄호({ })를 이용한 변수 치환 (Variable Injection)
+# 중괄호({ })를 이용한 변수 치환 (Variable Injection), {}는
 # 모델에게 페르소나(Persona)를 부여하는 규칙
 # '#Context' : LangChain의 강제된 표준이 아니라, LLM의 성능을 높이기 위한 프롬프트 엔지니어링의 관습적인 기법
+# 프롬포트 템플릿에서 {context}와 {question}처럼 {} 안에는 입력 변수로 변환됨 {딕셔너리의 키와 매칭}
+# LLM은 많은 마크다운 문서를 학습했기 때문에 "#"과 같은 마크다운 형식이 포함된 프롬포트도 잘 처리할 수 있음
 template = """당신은 주어진 문맥(context)만을 바탕으로 질문에 답하는 어시스턴트입니다.
-#Context: 
-{context}       
+          → 해석 : 너는 이 역할만 해! 하는 것 / """ 은 여러 줄 문자열(Multiline String) = 줄바꿈이 포함된 문자열
+#Context:    → #이 들어가는 것은 중요한 제목
+{context}    # {} 되어있는 건 랭체인 기법! 나중에 이 부분 context라는 문자로 바꿀게~ 하는 서식문자열 
+               여기서 context는 딕셔너리에 있음. 그 딕셔너리 내에서 context 키를 찾아서 데이터 집어넣으란 말임
+               => 즉, 이용자 질문은 아래 q 부분에 주고 db에서 나온 내용은 context에 줄테니 질문에 나온 내용을
+                      작성해. 
+
 #Question:
-{question}       
-#Answer:"""     
+{question}
+#Answer:"""   
 
-prompt = ChatPromptTemplate.from_template(template)
+prompt = ChatPromptTemplate.from_template(template)  # 템플릿으로부터 프롬포트를 만들어! 
 
-def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
+def format_docs(docs):                               
+    return "\n\n".join(doc.page_content for doc in docs) # for루프를 사용해 docs에서 
 
 # LangChain의 LCEL(LangChain Expression Language) 문법으로 구현한 것
 # 여러 단계를 파이프(|) 기호로 연결한 작업 체인
 # 사용자의 질문이 들어오면 다음 순서로 데이터가 흘러감
-rag_chain = (
+rag_chain = (           
     # 사용자의 질문을 retriever에 먼저 전달해 관련 문서 검색 | format_docs함수를 이용하여 검색된 문서를 합침
     # "question": RunnablePassthrough(): 사용자가 입력한 질문 그대로를 통과시켜 보존
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
-
+         # retriever에서 청크 3개가 나오면 foremat_docs로 전달. 
     | prompt  # 위에서 준비된 context, question를 템플릿의 context, question에 각각 끼워넣기
+              # 여기서 프롬포트가 완성되는 것 
     | llm     # 위에서 완성된 프롬프트를 llm(Gemma4)에게 전달/답변 생성
-    | StrOutputParser()   # 응답객체로부터 응답 문자열 추출
-)
+    | StrOutputParser()   # 응답객체로부터 응답 문자열 추출  / | 기호는 랭체인의 체인 구성 기호임 
+)                                                 #   데이터를 왼쪽에서 오른쪽으로 순서대로 전달
+   # - 튜플형식임
 
 # 6. 실행
 print("질문하는 중...")
 
 # 체인 실행 : 모든 과정이 순차적으로 자동 실행되어 최종 답변을 반환
-print(rag_chain.invoke("문서의 주요 내용을 알려줘"))
+print(rag_chain.invoke("문서의 주요 내용을 알려줘")) # invoke 는 호출이란 뜻! call이란 말과 같음 
+                                                    #  = rah_chain을 실행해줘
+	               #   위 RunnablePassthrough() 자리로 감. 퀘스쳔은 "문서의~" 문자를 가지고 있음
 ```
 
 ### 어려웠던 점
