@@ -1,6 +1,5 @@
 # 2026-05-14
-## 목표
-- Vector DB에서 데이터를 꺼내 완성된 문장이 나에게 오는가? 확인 (실제로 데이터가 어떻게 흐르는지 확인)
+## 목표 : Vector DB에서 데이터를 꺼내 완성된 문장이 나에게 오는가? 확인 (실제로 데이터가 어떻게 흐르는지 확인)
 ### 배운 내용
 1. RAG Architecture Model
    - Client → Framework : 사용자 질문     *여기서 Framework란? ex. LangChain, FastAPI, Python 코드
@@ -127,5 +126,17 @@ print(rag_chain.invoke("문서의 주요 내용을 알려줘")) # invoke 는 호
 ```
 
 ### 어려웠던 점
- - 
+ - 설계(rag_chain) vs 실행(invoke)
+   : rag_chain 자체가 실행처럼 느껴졌지만 현재는 rag_chain이 작업 흐름 설계도이고, invoke()로 실제 실행을 한다는 것을 인지함
+ - context 생성 흐름
+   : invoke 내에는 question만 있는데, Prompt에서는 context와 question으로 왜 나뉘는지?
+   : 실제 흐름으로, question → retriever 검색 → format_docs → context 생성되었다는 것을 인지
+ - Document 객체 개념
+   : LangChain에서의 Chunk는 단순 텍스트 개념이 아닌, 텍스트 + 메타데이터를 함께 관리하는 개념
+ - ChatPromptTemplate 의미
+   : LangChain에서 사용하는 Prompt 객체 형태로 변환하는 것 (체인 연결/ 변수 치환/ invoke 가능 상태로)
+ - StrOutputParser() 사용 이유
+   : LLM에서 이미 문자열이 오는 게 아닌, AIMessage 같은 객체 출력에서 문자열만 출력해낸다는 것을 인지
+   
 ### 느낀 점
+PC를 또 다른 하나의 나라라고 생각하게 되었다. 모든 말을 PC가 이해할 수 있는 말로 바꿔주어야 하고 그들만의 규칙이 따로 있다. 하지만, 규칙만 잘 따른다면 누구보다 정확하고 빠르게 답을 출력해내는 도구라고 생각한다.
