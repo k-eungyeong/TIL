@@ -1,5 +1,6 @@
 # 2026-05-14
 ## 목표
+- Vector DB에서 데이터를 꺼내 완성된 문장이 나에게 오는가? 확인 (실제로 데이터가 어떻게 흐르는지 확인)
 ### 배운 내용
 1. RAG Architecture Model
    - Client → Framework : 사용자 질문     *여기서 Framework란? ex. LangChain, FastAPI, Python 코드
@@ -126,4 +127,5 @@ print(rag_chain.invoke("문서의 주요 내용을 알려줘")) # invoke 는 호
 ```
 
 ### 어려웠던 점
+ - 
 ### 느낀 점
