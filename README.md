@@ -13,6 +13,10 @@
 ## 폴더 구조
 
 ```text
+2026-05-14/
+ ├── README.md
+ ├── pdf_to_vectordb.py
+ └── rag_chain.py
 2026-05-15/
  ├── README.md
  └── rag_contextualize.py
