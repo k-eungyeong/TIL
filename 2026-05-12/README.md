@@ -1,4 +1,4 @@
-# 2026-05-13
+# 2026-05-12
 ## 목표 : Ollama를 사용해 Local System에서 LLM(Gemma4) 사용해보기
 ### 배운 내용
 1. LM Studio : GUI(Graphic User Interpace)를 사용해 Local System에서 LLM을
