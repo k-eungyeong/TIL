@@ -24,7 +24,5 @@
  7. 콘솔에 gathering model components ..., writing manifest, success가 뜨면 등록 성공한 것
  8. CMD) "ollama run (모델명)" 명령 → 사용자 질문 요청 → 알맞은 답변 뜨면 성공 → 종료시 "/bye"
 
-
-
 ### 어려웠던 것
 ### 느낀 점
