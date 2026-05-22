@@ -29,7 +29,7 @@
   - VS code 열리면 pdf_to_vectordb.py 저장     * 저장된 곳에 사용할 PDF도 저장
 
 
-[ 언어 ]
+[ 언어 ]  
 Session  사용자별 임시 기억공간 (문맥 유지방식)  
 Redis    초고속 메모리 저장소
 
