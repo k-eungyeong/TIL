@@ -8,7 +8,6 @@
 * FastAPI
 * LangChain
 * RAG
-* React
 
 ## 폴더 구조
 
