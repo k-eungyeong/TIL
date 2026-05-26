@@ -10,6 +10,9 @@ IT학원에서 공부한 내용을 날짜별로 정리하는 저장소
 * FastAPI
 * LangChain
 * RAG
+* LM Studio, Ollama
+* LLM
+* AI-Agent
 
 ## 폴더 구조
 
