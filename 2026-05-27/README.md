@@ -144,7 +144,125 @@ if __name__ == "__main__":
 → 검색 텍스트 → LLM → 정리(완성된 문서로 리턴)
 
 [ 3교시 ]
+“.env” 라는 파일을 만들고 나의 API 코드 저장 
+→ os.environ["TAVILY_API_KEY"] = "(API 코드)" 
 
+ load_dotenv()                                                        # OS의 환경 변수에 .env 파일 내용 등록 
+ tavily_key = os.getenv(”TAVILY_API_KEY”)
+```
+import os
+
+"""
+LangGraph 기반 ReAct AI-Agent 예제
+- Agent의 4가지 요소(Memory, Profile, Planning, Tools)를 모두 활용한 ReAct 에이전트 구현
+- Ollama 로컬 모델 사용
+- Gemma4:e4b 모델 (텍스트 생성, 검색 키워드 추출, 검색 결과 요약, 응답 생성, 도구 사용 판단, 반복 요구 등 다양한 역할 수행)
+- ReAct 프레임워크로 검색과 응답을 반복하는 에이전트 구현 (system_prompt에 ReAct 행동 지침(반복여부) 포함). LLM이 반복 결정 -> LangGraph가 반복 실행 -> LLM이 종료 결정 -> 최종 답변 생성
+- Tavily 웹 검색 Tool 사용
+- LangChain create_agent는 내부적으로 LangGraph runtime을 사용
+"""
+
+from dotenv import load_dotenv
+from langchain.agents import create_agent
+from langchain_ollama import ChatOllama
+from langchain_tavily import TavilySearch
+
+load_dotenv()   # 테블릿 키를 알고있으니 필요하면 꺼내오면 됨! 위 import os 밑 테블릿 키를 숨길 수 있음 
+
+# 1) Ollama LLM 설정
+llm = ChatOllama(
+    model="gemma4:e4b",
+    temperature=0,       # 0: 완전 결정론적 응답(완전 사실만 받고싶다면), 0.7: 적당한 창의성, 1.0: 매우 창의적 응답
+)
+
+# 2) Tavily 검색 Tool 설정
+# max_results는 검색 결과 개수. TavilySearch는 max_results, topic, search_depth 등을 지원.
+search_tool = TavilySearch(  
+    max_results=3,           
+    search_depth="basic",  # "basic"은 간단한 검색, "deep"은 더 많은 결과와 상세한 정보, "advanced"는 최대한 많은 결과와 상세한 정보 제공
+)
+
+tools = [search_tool]
+
+# 3) ReAct Agent 생성
+from langgraph.checkpoint.memory import InMemorySaver
+
+memory = InMemorySaver()  # LangGraph가 이전 대화 history를 자동으로 이어서 기억(이용자 메시지 + 에이전트 메시지 모두 저장) -> create_agent의 checkpointer로 전달하면 됨. 이후 대화에서 thread_id가 같으면 자동으로 이어서 기억
+
+agent = create_agent(
+    model=llm,
+    tools=tools,
+    checkpointer=memory,   # 에이전트의 상태를 저장하는 체크포인터
+    system_prompt="""
+당신은 정확한 정보를 제공하는 한국어 AI-Agent입니다.
+
+목표:
+사용자의 질문에 대해 최신성, 정확성, 근거가 충분한 답변을 제공하세요.
+
+도구 사용 기준:
+1. 최신 정보, 변경 가능성이 있는 정보, 불확실한 정보는 Tavily 검색 도구를 사용하세요.
+2. 검색 결과가 부족하거나 서로 충돌하면 추가 검색을 수행하세요.
+3. 답변에 필요한 핵심 근거가 확보될 때까지 검색과 분석을 반복하세요.
+4. 충분한 근거가 확보되면 최종 답변을 작성하세요.
+5. 근거가 부족하면 추측하지 말고 “확인된 정보가 부족하다”고 말하세요.
+"""
+)
+
+# 4) 실행
+config = {
+    "configurable": {
+        "thread_id": "user-001"    # 사용자별로 고유한 thread_id를 사용하여 대화 상태를 관리할 수 있음
+    }
+}
+
+if __name__ == "__main__":           # 여기서 "__main__"은 따옴표 안에 있으니 문자열임 
+    """  스트리밍 방식이 아닌 호출:    # __name__ 안에 들어가는 건 그냥 문자열인데, __name__ == "__main__"인 경우 
+    question = "2026년 현재 LangGraph에서 ReAct Agent를 만드는 권장 방식은 무엇인가요?"
+
+    result = agent.invoke({
+        "messages": [
+            {"role": "user", "content": question}
+        ]
+    },
+    config=config
+)
+
+    print(result["messages"][-1].content)
+    """
+
+    # 스트리밍 방식으로 실행하기 : 각 단계별로 출력 가능
+    question = "오늘 기준 LangGraph와 LangChain Agent의 차이를 검색해서 설명해줘."
+    for step in agent.stream(
+        {
+            "messages": [
+                {"role": "user", "content": question}
+            ]
+        },
+        config=config,
+        stream_mode="values",  # "values"는 각 단계별로 출력, "final"은 최종 결과만 출력, "all"은 모든 단계의 메시지를 포함한 최종 결과 출력, "update"는 각 단계별로 업데이트된 메시지만 출력
+    ):
+        step["messages"][-1].pretty_print()
+```
+- 이후 아나콘타 프롬포트에서 ai-agent 가상환경을 연 뒤 VS code 열기!
+- 터미널에 "cls" 한다면 꽉 찼던 공간을 지워주는 것
+- 총 3개의 파일 생성 ( a.py / b.py / c.py )
+```
+[ a.py ]
+import b
+import c
+
+print("a, __name__=", __name__) # a에서 이름은 ~다. 라고 나올 것
+b.test_b()
+c.test_c()
+```
+```
+[ b.py ] b.py와 c.py는 test_b/c만 다르고 나머지 동일
+def test_b():                   
+    print("test_b")
+    print('__name__=', __name__)
+```
+
+[ 4교시 ]
 
 
 
