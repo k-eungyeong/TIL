@@ -1,7 +1,7 @@
 # 2026-05-27
 ## 목표 : N교시별 작성
 ### 배운 내용
-[ 1교시 ] AI-Agent의 도구(Tools)의 예
+##### [ 1교시 ] AI-Agent의 도구(Tools)의 예  
 ```
 @tool
 def send_email_tool(to)email: str, subject: str, body:str) -> str. # 함수의 헤드
@@ -31,7 +31,7 @@ http:/www.tavily.com/?utm_source=chatgpt.com 들어가서 AI-Agent 전용 검색
 ```
 아나콘다 프롬포트 > “pip install -U langgraph langchain langchain-ollama langchain-tavily python-dotenv”
 
-[ 2교시 ]
+##### [ 2교시 ]  
 - 환경변수(Environment Variables) : 운영체제가 사용하는 시스템 변수 
    - 개발자 코드에 포함하면 보안상 위험에 노출될 수도 있는 비번, API키 등을 코드에서 숨긴다
    - python-dotenv 모듈은 “.env” 안에 입력된 데이터를 운영체제의 환경변수에 저장해주는 기능
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 → 젬마4에 해당 지식이 없다면 웹 검색 필요 → 키워드를 뽑아냄 ex. AI-Agent, 구성요소 → 키워드를 뽑아내는 건 LLM 담당 → Tavily 
 → 검색 텍스트 → LLM → 정리(완성된 문서로 리턴)
 
-[ 3교시 ]
+##### [ 3교시 ]  
 “.env” 라는 파일을 만들고 나의 API 코드 저장 
 → os.environ["TAVILY_API_KEY"] = "(API 코드)" 
 
@@ -262,7 +262,8 @@ def test_b():
     print('__name__=', __name__)
 ```
 
-[ 4교시 ]
+##### [ 4교시 ]  
+
 
 
 
