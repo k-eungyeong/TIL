@@ -263,7 +263,18 @@ def test_b():
 ```
 
 ##### [ 4교시 ]  
+- vs code 설명 진행 ( [a.py](http://a.py) 파일 ) 
+   - 직접적으로 돌린 애만 main이고 나머지는 파일 이름이 나옴
+- [b.py](http://b.py) 파일 설명 진행 → c.py도 똑같이 저장
+```
+def test_b():
+	print("test_b")
+	print('__name__=', __name__)
 
+if __name__ == "__main__":
+	test_b()
+
+##### [ 5교시 ]
 
 
 
