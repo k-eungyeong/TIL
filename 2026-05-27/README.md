@@ -291,6 +291,14 @@ def send_email_tool(to_email: str, subject: str, body: str) → str:            
 - ‘tool을 어떻게 하겠다’ 라는 것은 system_prompy = “”” 에 작성
 
 ##### [ 6교시 ]
+Q. 이용자가 구구단을 요청하는 경우에는 구구단 툴이 이용될 수 있도록 한다
+      - 웹검색 요청시 > Tavily 검색
+      - 구구단 요청시 > gugu_dan_tool 사용 
+
+[ Tool 만드는 방법 ]
+- ~ 7:25 규칙만 지키면 가능
+
+##### [ 7교시 ]
 
 
 
