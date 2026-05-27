@@ -274,7 +274,23 @@ def test_b():
 if __name__ == "__main__":
 	test_b()
 
-##### [ 5교시 ]
+##### [ 5교시 ]  
+- env 활용
+- 코드에서는 API 키가 노출되어서는 안 됨
+
+Q. quesetion 은 키보드 입력을 받아서 결정하게 하는 것? 의 코드를 알아내기 
+
+[ 5.3 녹음파일 ]
+@tool
+def send_email_tool(to_email: str, subject: str, body: str) → str:                  # str, json
+”””             # 이 부분에 “tool이 ~입니다.”를 잘 표현하면 됨(docstring 역할) 
+                  # 이후 원하는 기능 구현하되, try except 안에 들어가야 함
+                  # 에러가 났다는 것도 문자로 표현해야 LLM이 오류를 확인할 수 있게 해야 함! 
+                  # 최종 결과값은 문자열로 리턴, 위 def에서 str 또는 json 중 원하는 걸로 내보내는 것
+
+- ‘tool을 어떻게 하겠다’ 라는 것은 system_prompy = “”” 에 작성
+
+##### [ 6교시 ]
 
 
 
