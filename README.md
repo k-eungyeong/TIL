@@ -36,5 +36,6 @@ IT학원에서 공부한 내용을 날짜별로 정리하는 저장소
  ├── README.md
  └── test.csv
 2026-05-28/
- └── README.md
+ ├── README.md
+ └── sendmail.py
 ```
