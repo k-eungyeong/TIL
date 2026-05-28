@@ -238,6 +238,15 @@ if __name__ == "__main__":
 ```
 
 ##### [ 7교시 ]  
+* 6교시 마지막 문제 풀이 시간 
+   - 힌트 : AI-Agent가 사용할 Tool (이름은 전부 예시)
+        1. email_send_tool(email_to:str) - > str: 
+        2. email_read_tool(email_from:str) - > str: 
+        3. stock_buy_tool(amount: int) - > str:                 
+         → LLM이 주식을 살 수는 없으니 사용자가 승인했을 시 주식을 사는 Tool
++ 각 번호당 파라미터에 대한 설명이 각 번호당 밑 “”” “”” 을 넣어서 설명을 넣는 것임! 
+
+##### [ 8교시 ]  
 
 
 ### 어려웠던 점
