@@ -62,6 +62,273 @@ def send_email_node(state:MyState) -> dict                 # 밑 함수 내용�
 
 #  Multi Agents 
 ```
+##### [ 3교시 ]  
+```
+"""
+[기능 요약]
+- LangGraph로 Multi-Agent 기반 팩트체크 워크플로우 구성
+- Ollama 로컬 모델(Gemma 계열) 사용
+- Tavily 검색 도구 사용
+- 각 노드 함수 안에서 서로 다른 Persona Agent 실행
+  1) 검색 전문가 Agent
+  2) 팩트체크 전문가 Agent
+  3) 오류 정정 전문가 Agent
+"""
+
+import os
+from typing import TypedDict, List, Dict, Any
+
+from langchain.agents import create_agent
+from langchain_ollama import ChatOllama
+from langchain_tavily import TavilySearch
+from langgraph.graph import StateGraph, START, END
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+# =========================
+# 1. 환경 설정
+# =========================
+
+#os.environ["TAVILY_API_KEY"] = "여기에_TAVILY_API_KEY_입력"
+
+llm = ChatOllama(
+    model="gemma4:e4b",   # 실제 Ollama에 설치된 모델명과 일치해야 함
+    temperature=0
+)
+
+search_tool = TavilySearch(
+    max_results=5,
+    topic="general"
+)
+
+
+# =========================
+# 2. State 정의
+# =========================
+
+class FactCheckState(TypedDict):
+    user_text: str
+    search_result: str
+    factcheck_result: str
+    corrected_text: str
+    final_answer: str
+
+
+# =========================
+# 3. Persona Agent 생성
+# =========================
+
+search_agent = create_agent(
+    model=llm,
+    tools=[search_tool],
+    system_prompt="""
+당신은 검색 전문가입니다.
+
+역할:
+- 사용자가 입력한 문장에서 검증이 필요한 사실 주장들을 파악합니다.
+- 각 주장에 대해 신뢰 가능한 웹 자료를 검색합니다.
+- 최소 5개 이상의 검색 근거를 확보하려고 노력합니다.
+- 검색 결과는 출처, 핵심 내용, 검증 대상 주장과의 관련성을 중심으로 정리합니다.
+
+주의:
+- 추측하지 마세요.
+- 검색 결과가 부족하면 '근거 부족'이라고 표시하세요.
+"""
+)
+
+factcheck_agent = create_agent(
+    model=llm,
+    tools=[],
+    system_prompt="""
+당신은 매우 엄격한 팩트체크 전문가입니다.
+
+역할:
+- 사용자의 원문과 검색 결과를 비교합니다.
+- 사실적 오류, 과장, 근거 부족, 날짜 오류, 수치 오류를 찾아냅니다.
+- 각 항목마다 다음 형식으로 판단합니다.
+
+출력 형식:
+1. 원문 주장:
+2. 판단:
+   - 사실
+   - 부분적으로 사실
+   - 사실 오류
+   - 근거 부족
+3. 문제점:
+4. 근거 요약:
+5. 정정 방향:
+
+주의:
+- 검색 근거에 없는 내용은 단정하지 마세요.
+- 애매하면 '근거 부족'으로 분류하세요.
+"""
+)
+
+rewrite_agent = create_agent(
+    model=llm,
+    tools=[],
+    system_prompt="""
+당신은 사실 오류를 정정하는 전문 편집자입니다.
+
+역할:
+- 팩트체크 결과를 바탕으로 사용자의 원문을 정확하게 수정합니다.
+- 과장된 표현은 중립적으로 바꿉니다.
+- 근거가 부족한 내용은 단정 표현을 피합니다.
+- 최종 수정문은 자연스럽고 읽기 쉽게 작성합니다.
+
+출력 형식:
+[수정된 문장]
+
+[수정 요약]
+- 무엇을 고쳤는지 bullet로 정리
+"""
+)
+
+
+# =========================
+# 4. Node 함수 정의
+# =========================
+
+def search_node(state: FactCheckState) -> Dict[str, Any]:
+    user_text = state["user_text"]
+
+    result = search_agent.invoke({
+        "messages": [
+            {
+                "role": "user",
+                "content": f"""
+다음 텍스트에서 사실 검증이 필요한 주장들을 찾고,
+각 주장에 대해 웹 검색을 수행하세요.
+
+검증 대상 텍스트:
+{user_text}
+"""
+            }
+        ]
+    })
+
+    return {
+        "search_result": str(result["messages"][-1].content)
+    }
+
+
+def factcheck_node(state: FactCheckState) -> Dict[str, Any]:
+    user_text = state["user_text"]
+    search_result = state["search_result"]
+
+    result = factcheck_agent.invoke({
+        "messages": [
+            {
+                "role": "user",
+                "content": f"""
+아래 원문과 검색 결과를 비교하여 사실적 오류를 검토하세요.
+
+[원문]
+{user_text}
+
+[검색 결과]
+{search_result}
+"""
+            }
+        ]
+    })
+
+    return {
+        "factcheck_result": str(result["messages"][-1].content)
+    }
+
+
+def rewrite_node(state: FactCheckState) -> Dict[str, Any]:
+    user_text = state["user_text"]
+    factcheck_result = state["factcheck_result"]
+
+    result = rewrite_agent.invoke({
+        "messages": [
+            {
+                "role": "user",
+                "content": f"""
+아래 팩트체크 결과를 반영하여 원문을 수정하세요.
+
+[원문]
+{user_text}
+
+[팩트체크 결과]
+{factcheck_result}
+"""
+            }
+        ]
+    })
+
+    return {
+        "corrected_text": str(result["messages"][-1].content)
+    }
+
+
+def final_node(state: FactCheckState) -> Dict[str, Any]:
+    final_answer = f"""
+# 팩트체크 결과
+
+## 1. 검색 결과 요약
+{state["search_result"]}
+
+---
+
+## 2. 사실 오류 분석
+{state["factcheck_result"]}
+
+---
+
+## 3. 오류 정정 문안
+{state["corrected_text"]}
+"""
+
+    return {
+        "final_answer": final_answer
+    }
+
+
+# =========================
+# 5. LangGraph 구성
+# =========================
+
+graph_builder = StateGraph(FactCheckState)
+
+graph_builder.add_node("search_node", search_node)
+graph_builder.add_node("factcheck_node", factcheck_node)
+graph_builder.add_node("rewrite_node", rewrite_node)
+graph_builder.add_node("final_node", final_node)
+
+graph_builder.add_edge(START, "search_node")
+graph_builder.add_edge("search_node", "factcheck_node")
+graph_builder.add_edge("factcheck_node", "rewrite_node")
+graph_builder.add_edge("rewrite_node", "final_node")
+graph_builder.add_edge("final_node", END)
+
+app = graph_builder.compile()
+
+
+# =========================
+# 6. 실행 예시
+# =========================
+
+if __name__ == "__main__":
+    user_input = """
+대한민국의 수도는 부산이며, 2024년 기준 한국의 인구는 1억 명을 넘었다.
+또한 서울은 2020년에 처음으로 특별시가 되었다.
+"""
+
+    result = app.invoke({
+        "user_text": user_input,
+        "search_result": "",
+        "factcheck_result": "",
+        "corrected_text": "",
+        "final_answer": ""
+    })
+
+    print(result["final_answer"])
+```
 
 ### 어려운 점
 ### 느낀 점
