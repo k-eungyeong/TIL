@@ -55,6 +55,13 @@
 
 ##### [ 3교시 ]  
 
+<img width="564" height="101" alt="image" src="https://github.com/user-attachments/assets/894ab28a-4d33-4379-a1fe-639ce371e3f7" />
+
+##### [ 4교시 ]  
+
+<img width="642" height="147" alt="image" src="https://github.com/user-attachments/assets/f87c3167-f17c-4d79-b4d6-fbf0c8353435" />
+<img width="671" height="115" alt="image" src="https://github.com/user-attachments/assets/57f8f954-733c-41cf-b23d-0b16097fc2a5" />
+
 
 
 ### 어려웠던 점
