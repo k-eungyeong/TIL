@@ -27,6 +27,34 @@
    * Cosys-AirSim
   
 ##### [ 2교시 ]  
+ - MS AirSim (자동차, 드론 등 대상) 
+   * Cosys-AirSim : 3D 자동차, 드론 시뮬레이터, Unreal Engine 5.5버전
+   * Unreal Engine의 에디터 - VS Studio 2022하고 연동돼서 C++ 코딩할 때 필요
+   * 프로젝트 컴파일 및 패키징 : 지원하는 환경) Blocks.exe
+   * Blocks 환경 실행 : 다수 개의 블럭 존재 + 자동차 주행 가능(키보드 조작)
+   * 외부 접속을 위한 API 서버 존재
+   * API 서버에 조작 명령을 전달하여 자동차 제어가 가능함
+   * Cosys-AirSim 서버에 접속하고 조작하기 위한 Python 모듈이 존재
+   * 결론 : Python을 사용하여 Cosys-AirSim 자동차 제어 가능
+   * Cosys-AirSim 자동차에 부착된 모든 센서의 값을 API 서버를 통해 가져올 수 있음 = 센서 값을 가져와서 ROS2 돌릴 수 있고 ~ 위 주 영역 부분 단계!
+   * airsim_ros_pkgs 을 설치하면 Cosys-AirSim 과 ROS2 를 쉽게 연동 가능 
+     ⇒ ROS2 → airsim_ros_pkgs를 이용해서 → Cosys-AirSim 제어 가능 → ROS2에 센서의 값 전달 가능
+
+  Cosys-AirSim, Unreal Engin 5.5, VS Stuido 2022, Python, ROS2 
+- ROS2로 들어가자면, 필요로 하는 OS는 리눅스임! 
+  * Linux OS에 ROS2 설치 필요 (Linux(Ubuntu 22.04버전 권장)
+  * WSL(Windows Subsystem for Linux)를 이용하면 윈도우 안에 리눅스 설치 가능함 
+
+✅ AI 개발/ 실행이 Python에서 Linux로 넘어가야 함!
+    - Windows 기반에서 Cosys-AirSim 실행
+    - Linux 기반에서 ROS2, Python, AI 실행 
+
+  Cosys-AirSim 실행 환경
+- Win 10, 11 / RAM 16GB 이상 / 저장 공간 100GB 이상
+
+
+##### [ 3교시 ]  
+
 
 
 ### 어려웠던 점
