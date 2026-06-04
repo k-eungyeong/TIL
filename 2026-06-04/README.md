@@ -62,6 +62,13 @@
 <img width="642" height="147" alt="image" src="https://github.com/user-attachments/assets/f87c3167-f17c-4d79-b4d6-fbf0c8353435" />
 <img width="671" height="115" alt="image" src="https://github.com/user-attachments/assets/57f8f954-733c-41cf-b23d-0b16097fc2a5" />
 
+##### [ 5교시 ]  
+Blocks 환경 업데이트
+Developer Command Prompt에서 실행:
+cd C:\Cosys-AirSim\Unreal\Environments\Blocks\
+위의 경로에서 실행 -> update_from_git.bat
+
+##### [ 7교시 ]  
 
 
 ### 어려웠던 점
