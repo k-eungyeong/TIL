@@ -69,7 +69,66 @@ cd C:\Cosys-AirSim\Unreal\Environments\Blocks\
 위의 경로에서 실행 -> update_from_git.bat
 
 ##### [ 7교시 ]  
+<img width="1003" height="741" alt="image" src="https://github.com/user-attachments/assets/c4ecdac8-36ef-4427-a9bc-7e162fb41206" />
 
+##### [ 8교시 ]  
+→ 빌드가 끝났다면 채워진 초록색 화살표를 눌러서 Unreal Editor 실행 → 화면 상단 중앙에 초록색 Play 버튼 누르기 
+  ( 브레이크 : 스페이스, 조작 : 방향키 )
+  <img width="641" height="115" alt="image" src="https://github.com/user-attachments/assets/41b8bfec-c111-4a5c-b9f2-24178743b086" />
+ 
+- Unreal Editor를 사용할 때는 장애물을 바꾸거나 할 때만 사용! 그 외는 사용 xx
+- 실행 파일만 만들어두면 됨.
+```
+[ car_remote_control.py ] 프로그램으로 원격 제어할 수 있는 코드(현재 코드는 정해진 루트만 감)
+import cosysairsim as airsim
+import time
+
+client = airsim.CarClient()
+client.confirmConnection()
+client.enableApiControl(True)
+
+car_controls = airsim.CarControls()
+
+# 전진
+print("전진 중...")
+car_controls.throttle = 0.6
+client.setCarControls(car_controls)
+time.sleep(3)
+print(f"속도: {client.getCarState().speed:.2f} m/s")
+
+# 좌회전
+print("좌회전 중...")
+car_controls.steering = -0.5
+client.setCarControls(car_controls)
+time.sleep(2)
+
+# 직진 가속
+print("전진 중...")
+car_controls.throttle = 0.9
+car_controls.steering = 0
+client.setCarControls(car_controls)
+time.sleep(4)
+
+# 우회전
+print("우회전 중...")
+car_controls.steering = 0.2
+client.setCarControls(car_controls)
+time.sleep(1)
+
+# 정지
+print("정지 중...")
+car_controls.throttle = 0
+car_controls.brake = 1
+car_controls.steering = 0
+client.setCarControls(car_controls)
+
+# 완전 정지 확인
+while client.getCarState().speed > 0.1:
+    time.sleep(0.1)
+
+client.enableApiControl(False)
+print("완료!")
+```
 
 ### 어려웠던 점
 ### 느낀 점
