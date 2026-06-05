@@ -19,6 +19,19 @@ Python 코드로 자동차 제어 가능
     4. 설정
 
 ##### [ 3교시 ]  
+<img width="997" height="646" alt="image" src="https://github.com/user-attachments/assets/77b8dd29-a875-4179-9f39-3383b04dedde" />
+<img width="999" height="648" alt="image" src="https://github.com/user-attachments/assets/f2a64041-98c9-4caa-b2ed-9ffd978e4e6b" />
+<img width="1000" height="536" alt="image" src="https://github.com/user-attachments/assets/2fd1b9d7-bf99-4902-8992-e9e04ce6dc86" />
+<img width="992" height="473" alt="image" src="https://github.com/user-attachments/assets/ec7d499e-68bb-431d-9325-aeec969f1e52" />
+
+##### [ 4교시 ]  
+<img width="984" height="809" alt="image" src="https://github.com/user-attachments/assets/7a8f1fd2-8cac-4fa9-9244-04974ac5d073" />
+
+##### [ 5교시 ]  
+<img width="809" height="556" alt="image" src="https://github.com/user-attachments/assets/96e82f04-0ef4-4724-ba89-d15ccc1ef5e2" />
+
+##### [ 6교시 ]  
+
 
 
 ### 어려웠던 점
