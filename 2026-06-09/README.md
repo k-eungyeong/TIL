@@ -90,7 +90,6 @@ def generate_launch_description():
 ```
 - “config/slam_toolbox_params.yaml”        # config 아래쪽에 빈 파일 하나 만들기
 ```
-[ 파일내용 ]
 
 slam_toolbox:
   ros__parameters:
