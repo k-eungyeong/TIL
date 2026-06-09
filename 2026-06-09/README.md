@@ -164,10 +164,8 @@ slam_toolbox:
     scan_queue_size: 50
     qos_overrides./scan.reliability: best_effort
 ```
-<img width="995" height="211" alt="image" src="https://github.com/user-attachments/assets/388b632b-351c-4e87-a18a-57c9fd1d87b6" />
 
+<img width="999" height="218" alt="image" src="https://github.com/user-attachments/assets/88799120-28ea-4e0e-9d35-2d0ee26127d7" />
 
-
-##### [ 4교시 ]  
 
 
