@@ -24,3 +24,8 @@
 ##### [ 7교시 ]  
 <img width="957" height="643" alt="image" src="https://github.com/user-attachments/assets/66e8a5f4-6821-4612-bb37-05cfd9ce0bcd" />
 
+##### [ 8교시 ]  
+<img width="965" height="692" alt="image" src="https://github.com/user-attachments/assets/d794c7a3-0dab-4a9b-8838-1673c4dc5c4e" />
+<img width="966" height="781" alt="image" src="https://github.com/user-attachments/assets/a2eee1e1-a55f-4a18-80c0-4a4dfbf81952" />
+
+
