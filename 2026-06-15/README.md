@@ -16,3 +16,7 @@
 
 ##### [ 5교시 ]  
 <img width="957" height="433" alt="image" src="https://github.com/user-attachments/assets/d1be8aa5-3aa5-4352-aad2-4b87e925dff2" />
+
+##### [ 6교시 ]  
+<img width="962" height="845" alt="image" src="https://github.com/user-attachments/assets/9ee15177-cf60-49ef-84f8-d67867584263" />
+<img width="968" height="307" alt="image" src="https://github.com/user-attachments/assets/5bcbe54a-6864-483a-8293-7d8206787d33" />
