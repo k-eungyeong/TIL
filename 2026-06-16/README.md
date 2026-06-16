@@ -21,3 +21,7 @@
 <img width="936" height="920" alt="image" src="https://github.com/user-attachments/assets/3bc453e4-05df-43d5-929b-8c3d96d701ab" />
 <img width="905" height="397" alt="image" src="https://github.com/user-attachments/assets/0d99b2ad-c0db-48da-9f81-9955d4d7e725" />
 
+##### [ 6교시 ]  
+<img width="914" height="824" alt="image" src="https://github.com/user-attachments/assets/032983e0-3385-4793-b17b-34fb83c80b4b" />
+
+
