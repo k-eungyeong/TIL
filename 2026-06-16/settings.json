@@ -1,0 +1,98 @@
+{
+  "SeeDocsAt": "https://cosys-lab.github.io/settings/",
+  "SettingsVersion": 2.0,
+  "SimMode": "Car",
+  "ClockSpeed": 1.0,
+  "LocalHostIp": "0.0.0.0",
+
+  "Vehicles": {
+    "Car1": {
+      "VehicleType": "PhysXCar",
+      "X": 0, "Y": 0, "Z": -1,
+
+      "Cameras": {
+        "DepthCamera": {
+          "CaptureSettings": [
+            {
+              "ImageType": 2,
+              "Width": 640,
+              "Height": 480,
+              "FOV_Degrees": 90,
+              "AutoExposureSpeed": 100,
+              "MotionBlurAmount": 0
+            }
+          ],
+          "X": 0.5, "Y": 0.0, "Z": -0.3,
+          "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0
+        },
+        "FrontCamera": {
+          "CaptureSettings": [
+            {
+              "ImageType": 0,
+              "Width": 640,
+              "Height": 480,
+              "FOV_Degrees": 90,
+              "AutoExposureSpeed": 100,
+              "MotionBlurAmount": 0
+            }
+          ],
+          "X": 0.5, "Y": 0.0, "Z": -0.3,
+          "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0
+        }
+      },
+
+      "Sensors": {
+        "LidarSensor": {
+          "SensorType": 8,
+          "Enabled": true,
+
+          "NumberOfChannels": 16,
+          "RotationsPerSecond": 10,
+          "MeasurementsPerCycle": 512,
+          "Resolution": 512,
+
+          "HorizontalFOVStart": 0,
+          "HorizontalFOVEnd": 360,
+          "VerticalFOVUpper": 10.0,
+          "VerticalFOVLower": -10.0,
+          "Range": 50.0,
+          "MaxRange": 50,
+
+          "X": 0.0, "Y": 0.0, "Z": -2.2,
+          "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0,
+
+          "DrawDebugPoints": true,
+          "DrawSensor": true,
+          "DrawMode": 0,
+
+          "GroundTruth": false,
+          "InstanceSegmentation": false,
+          "GenerateIntensity": false,
+          "IgnoreMarked": false,
+
+          "External": false
+        },
+
+        "ImuSensor": {
+          "SensorType": 2,
+          "Enabled": true,
+          "AngularRandomWalk": 0.3,
+          "GyroBiasStabilityTau": 500,
+          "GyroBiasStability": 4.6,
+          "VelocityRandomWalk": 0.24,
+          "AccelBiasStabilityTau": 800,
+          "AccelBiasStability": 36.0,
+          "X": 0.0, "Y": 0.0, "Z": -0.2,
+          "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0
+        },
+
+        "GpsSensor": {
+          "SensorType": 3,
+          "Enabled": true,
+          "X": 0.0, "Y": 0.0, "Z": -0.5,
+          "Pitch": 0.0, "Roll": 0.0, "Yaw": 0.0
+        }
+      }
+    }
+  }
+}
