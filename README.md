@@ -72,7 +72,11 @@ IT학원에서 공부한 내용을 날짜별로 정리하는 저장소
 2026-06-17/
  ├── README.md
  ├── nav2_params.yaml
- ├── nav2_airsim.launch.py
+ └── nav2_airsim.launch.py
+2026-06-18/
+ ├── README.md
+ ├──
+ ├── 
  ├── 
  ├── 
  ├── 
