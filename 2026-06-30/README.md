@@ -9,3 +9,8 @@
 ##### 7교시  
 <img width="896" height="805" alt="image" src="https://github.com/user-attachments/assets/da33b595-68d6-4b62-943d-61ce4edf0ea7" />
 <img width="918" height="573" alt="image" src="https://github.com/user-attachments/assets/4cc72418-f688-4213-be6d-0229156dfa85" />
+
+##### 8교시 
+<img width="902" height="610" alt="image" src="https://github.com/user-attachments/assets/c01704c3-8539-4490-ad78-4f6eb7f6b4fe" />
+<img width="903" height="794" alt="image" src="https://github.com/user-attachments/assets/aeca5e93-62df-4347-9dde-be8a53712028" />
+<img width="907" height="482" alt="image" src="https://github.com/user-attachments/assets/e101035a-f312-4426-8279-dbe766144410" />
