@@ -5,3 +5,7 @@
 
 ##### 6교시 
 <img width="898" height="748" alt="image" src="https://github.com/user-attachments/assets/3516f7c5-48f8-4684-a0e8-34d99c97b26d" />
+
+##### 7교시  
+<img width="896" height="805" alt="image" src="https://github.com/user-attachments/assets/da33b595-68d6-4b62-943d-61ce4edf0ea7" />
+<img width="918" height="573" alt="image" src="https://github.com/user-attachments/assets/4cc72418-f688-4213-be6d-0229156dfa85" />
